@@ -1,0 +1,17 @@
+{
+    "collection_name": "FlowFi Invoices",
+    "collection_symbol": "FLOW",
+    "total_token_supply": "10000",
+    "ownership_mode": 2,
+    "holder_mode": 2,
+    "whitelist_mode": 0,
+    "minting_mode": 0,
+    "nft_kind": 1,
+    "nft_metadata_kind": 0,
+    "identifier_mode": 0,
+    "metadata_mutability": 0,
+    "burn_mode": 1,
+    "events_mode": 1,
+    "owner_reverse_lookup_mode": 0,
+    "json_schema": ""
+}

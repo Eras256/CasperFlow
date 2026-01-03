@@ -1,0 +1,7 @@
+{
+	"dependencies": {
+		"@ethersproject/bignumber": "^5.8.0",
+		"casper-cep78-js-client": "^1.5.1",
+		"casper-js-sdk": "^2.15.4"
+	}
+}

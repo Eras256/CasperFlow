@@ -1,0 +1,35 @@
+# .gitignore for CasperFlow project
+# Node.js
+node_modules/
+# pnpm lock file (optional)
+# pnpm-lock.yaml
+# Build output
+dist/
+build/
+# Environment files
+.env
+.env.*
+.env.local
+.env.production
+.env.development
+
+# Next.js
+.next/
+out/
+build/
+dist/
+
+# Python virtual environment (if any)
+.venv/
+# VS Code settings
+.vscode/
+# Secrets and keys
+keys/
+# Deploy hash
+.deploy_hash
+# Misc
+.DS_Store
+# Cargo (Rust) target
+target/
+# Logs
+*.log

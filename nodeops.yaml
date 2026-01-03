@@ -1,0 +1,15 @@
+version: '1.0'
+services:
+  - name: flowfi-ai-agent
+    runtime: python:3.9
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - container: 8000
+        http: 80
+    env:
+      - name: ALLOWED_ORIGINS
+        value: "*"
+      - name: GEMINI_API_KEY
+        value: "Ask_User_To_Fill_In_NodeOps_Console"
