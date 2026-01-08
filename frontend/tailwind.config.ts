@@ -1,84 +1,78 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
-    darkMode: ["class"],
     content: [
         "./pages/**/*.{js,ts,jsx,tsx,mdx}",
         "./components/**/*.{js,ts,jsx,tsx,mdx}",
         "./app/**/*.{js,ts,jsx,tsx,mdx}",
     ],
     theme: {
-        container: {
-            center: true,
-            padding: "2rem",
-            screens: {
-                "2xl": "1400px",
-            },
-        },
         extend: {
             colors: {
-                border: "hsl(var(--border))",
-                input: "hsl(var(--input))",
-                ring: "hsl(var(--ring))",
-                background: "hsl(var(--background))",
-                foreground: "hsl(var(--foreground))",
-                primary: {
-                    DEFAULT: "hsl(var(--primary))",
-                    foreground: "hsl(var(--primary-foreground))",
+                // Primary Dark Palette
+                'flow-bg': {
+                    primary: 'var(--flow-bg-primary)',
+                    secondary: 'var(--flow-bg-secondary)',
+                    tertiary: 'var(--flow-bg-tertiary)',
+                    card: 'var(--flow-bg-card)',
                 },
-                secondary: {
-                    DEFAULT: "hsl(var(--secondary))",
-                    foreground: "hsl(var(--secondary-foreground))",
+                // Accent Colors
+                'flow-cyan': 'var(--flow-cyan)',
+                'flow-purple': 'var(--flow-purple)',
+                'flow-blue': 'var(--flow-blue)',
+                'flow-pink': 'var(--flow-pink)',
+                'flow-orange': 'var(--flow-orange)',
+                'flow-green': 'var(--flow-green)',
+                // Text Colors
+                'flow-text': {
+                    primary: 'var(--flow-text-primary)',
+                    secondary: 'var(--flow-text-secondary)',
+                    muted: 'var(--flow-text-muted)',
                 },
-                destructive: {
-                    DEFAULT: "hsl(var(--destructive))",
-                    foreground: "hsl(var(--destructive-foreground))",
-                },
-                muted: {
-                    DEFAULT: "hsl(var(--muted))",
-                    foreground: "hsl(var(--muted-foreground))",
-                },
-                accent: {
-                    DEFAULT: "hsl(var(--accent))",
-                    foreground: "hsl(var(--accent-foreground))",
-                },
-                popover: {
-                    DEFAULT: "hsl(var(--popover))",
-                    foreground: "hsl(var(--popover-foreground))",
-                },
-                card: {
-                    DEFAULT: "hsl(var(--card))",
-                    foreground: "hsl(var(--card-foreground))",
-                },
-                "flow-blue": "#0A2540",
-                "flow-cyan": "#00F0FF",
             },
-            borderRadius: {
-                lg: "var(--radius)",
-                md: "calc(var(--radius) - 2px)",
-                sm: "calc(var(--radius) - 4px)",
+            fontFamily: {
+                sans: ['var(--font-inter)', 'Inter', 'system-ui', 'sans-serif'],
+                display: ['var(--font-outfit)', 'Outfit', 'serif'],
+                mono: ['var(--font-space)', 'Space Grotesk', 'monospace'],
             },
-            keyframes: {
-                "accordion-down": {
-                    from: { height: "0" },
-                    to: { height: "var(--radix-accordion-content-height)" },
-                },
-                "accordion-up": {
-                    from: { height: "var(--radix-accordion-content-height)" },
-                    to: { height: "0" },
-                },
-                "neural-pulse": {
-                    "0%, 100%": { opacity: "1", transform: "scale(1)" },
-                    "50%": { opacity: "0.5", transform: "scale(1.1)" },
-                },
+            backgroundImage: {
+                "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
+                "gradient-conic": "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+                "gradient-primary": "var(--gradient-primary)",
+                "gradient-card": "var(--gradient-card)",
+                "gradient-mesh": "var(--gradient-mesh)",
+            },
+            boxShadow: {
+                'glow': 'var(--shadow-glow)',
+                'card': 'var(--shadow-card)',
+                'button': 'var(--shadow-button)',
             },
             animation: {
-                "accordion-down": "accordion-down 0.2s ease-out",
-                "accordion-up": "accordion-up 0.2s ease-out",
-                "neural-pulse": "neural-pulse 2s infinite ease-in-out",
+                'float': 'float 6s ease-in-out infinite',
+                'pulse-ring': 'pulse-ring 2s ease-out infinite',
+                'orb-float': 'orb-float 10s ease-in-out infinite',
+                'shimmer': 'shimmer 2s linear infinite',
+                'gradient-shift': 'gradient-shift 8s ease infinite',
+                'fade-in-up': 'fade-in-up 0.6s var(--ease-out-expo) forwards',
+                'scale-in': 'scale-in 0.4s var(--ease-out-expo) forwards',
+                'spin-slow': 'spin-slow 20s linear infinite',
+                'ping-slow': 'ping-slow 2s cubic-bezier(0, 0, 0.2, 1) infinite',
+            },
+            transitionTimingFunction: {
+                'expo-out': 'var(--ease-out-expo)',
+                'quart-out': 'var(--ease-out-quart)',
+                'circ-in-out': 'var(--ease-in-out-circ)',
+            },
+            borderRadius: {
+                '4xl': '2rem',
+                '5xl': '2.5rem',
+            },
+            backdropBlur: {
+                xs: '2px',
             },
         },
     },
-    plugins: [require("tailwindcss-animate")],
+    plugins: [],
 };
+
 export default config;

@@ -106,7 +106,7 @@ NEXT_PUBLIC_CASPER_CONTRACT_HASH=contract-2faa3d9bd2009c1988dd45f19cf307b3737ab1
 ## 📁 Project Structure
 
 ```
-CasperFlow-1/
+FlowFi/
 ├── frontend/                 # Next.js 14 Frontend
 │   ├── app/                  # App Router pages
 │   ├── components/           # React components

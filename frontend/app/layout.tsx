@@ -1,19 +1,51 @@
 import type { Metadata } from 'next'
-import { Inter, Playfair_Display } from 'next/font/google'
+import { Inter, Outfit, Space_Grotesk } from 'next/font/google'
 import './globals.css'
 import { CasperWalletProvider } from '@/components/providers'
 import Navbar from '@/components/ui/navbar'
 import Footer from '@/components/ui/footer'
+import { ThirdwebProvider } from "thirdweb/react";
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
-const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-playfair' })
+const inter = Inter({
+    subsets: ['latin'],
+    variable: '--font-inter',
+    display: 'swap',
+})
+
+const outfit = Outfit({
+    subsets: ['latin'],
+    variable: '--font-outfit',
+    display: 'swap',
+})
+
+const spaceGrotesk = Space_Grotesk({
+    subsets: ['latin'],
+    variable: '--font-space',
+    display: 'swap',
+})
 
 export const metadata: Metadata = {
-    title: 'FlowFi | Invoice Factoring on Casper Network',
-    description: 'Instantly turn unpaid invoices into working capital with AI-driven risk scoring.',
+    title: 'FlowFi | AI-Powered Invoice Factoring on Casper Network',
+    description: 'Transform unpaid invoices into instant working capital using Casper Network\'s enterprise-grade security and NodeOps AI risk scoring. Get funded in minutes, not months.',
+    keywords: ['DeFi', 'Invoice Factoring', 'Casper Network', 'RWA', 'Real World Assets', 'AI', 'Blockchain', 'NFT', 'Fintech'],
+    authors: [{ name: 'FlowFi Team' }],
+    openGraph: {
+        title: 'FlowFi | AI-Powered Invoice Factoring',
+        description: 'Instant liquidity for SMBs via AI Risk Audits & Casper Blockchain',
+        type: 'website',
+        locale: 'en_US',
+        siteName: 'FlowFi',
+    },
+    twitter: {
+        card: 'summary_large_image',
+        title: 'FlowFi | Liquidity at the Speed of AI',
+        description: 'Transform unpaid invoices into instant working capital',
+    },
+    robots: {
+        index: true,
+        follow: true,
+    },
 }
-
-import { ThirdwebProvider } from "thirdweb/react";
 
 export default function RootLayout({
     children,
@@ -21,19 +53,29 @@ export default function RootLayout({
     children: React.ReactNode
 }) {
     return (
-        <html lang="en" suppressHydrationWarning>
-            <body className={`${inter.variable} ${playfair.variable} font-sans bg-slate-50 text-slate-900 overflow-x-hidden selection:bg-flow-cyan selection:text-flow-blue`}>
+        <html lang="en" className="scroll-smooth" suppressHydrationWarning>
+            <head>
+                <link rel="icon" href="/favicon.ico" sizes="any" />
+                <meta name="theme-color" content="#030712" />
+            </head>
+            <body className={`${inter.variable} ${outfit.variable} ${spaceGrotesk.variable} font-sans antialiased`}>
+                {/* Noise Overlay for texture */}
+                <div className="noise-overlay" />
+
                 <ThirdwebProvider>
                     <CasperWalletProvider>
-                        <div className="flex flex-col min-h-screen">
+                        <div className="flex flex-col min-h-screen relative">
                             <Navbar />
-                            <main className="flex-grow pt-20">
+                            <main className="flex-grow pt-20 relative z-10">
                                 {children}
                             </main>
                             <Footer />
                         </div>
                     </CasperWalletProvider>
                 </ThirdwebProvider>
+
+                {/* Background Grid Pattern */}
+                <div className="fixed inset-0 bg-grid pointer-events-none opacity-30 z-0" />
             </body>
         </html>
     )

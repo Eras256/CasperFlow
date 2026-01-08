@@ -1,6 +1,8 @@
-# .gitignore for CasperFlow project
+# .gitignore for FlowFi project
 # Node.js
 node_modules/
+# pnpm store cache
+.pnpm-store/
 # pnpm lock file (optional)
 # pnpm-lock.yaml
 # Build output
@@ -18,9 +20,13 @@ build/
 out/
 build/
 dist/
+tsconfig.tsbuildinfo
 
-# Python virtual environment (if any)
+# Python
 .venv/
+__pycache__/
+*.pyc
+
 # VS Code settings
 .vscode/
 # Secrets and keys
@@ -33,3 +39,7 @@ keys/
 target/
 # Logs
 *.log
+
+# Large binary files
+*.tar.gz
+cep-78-enhanced-nft/

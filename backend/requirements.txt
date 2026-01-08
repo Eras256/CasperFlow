@@ -3,3 +3,6 @@ uvicorn
 pydantic
 python-dotenv
 google-generativeai
+python-multipart
+pypdf
+httpx

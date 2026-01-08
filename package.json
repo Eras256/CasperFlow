@@ -1,7 +1,11 @@
 {
+	"name": "flowfi",
+	"description": "AI-Powered Invoice Factoring on Casper",
 	"dependencies": {
+		"@casperlabs/ts-results": "^3.3.5",
 		"@ethersproject/bignumber": "^5.8.0",
 		"casper-cep78-js-client": "^1.5.1",
-		"casper-js-sdk": "^2.15.4"
+		"casper-js-sdk": "^2.15.7",
+		"dotenv": "^17.2.3"
 	}
 }
