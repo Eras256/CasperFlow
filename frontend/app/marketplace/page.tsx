@@ -14,14 +14,14 @@ import {
     Check,
     TrendingUp,
     Clock,
-    ChartBar,
+    BarChart3,
     SlidersHorizontal,
     LayoutGrid,
     List
 } from "lucide-react";
 import Link from "next/link";
 import { useCasper } from "@/components/providers";
-import { DeployUtil, CLPublicKey } from "casper-js-sdk";
+// casper-js-sdk is dynamically imported in handleInvest to avoid SSG issues
 import { Card3D, GlowingCard, StatsCard } from "@/components/immersive/cards";
 import { FadeInSection, AnimatedCounter } from "@/components/immersive/animated-text";
 import { MagneticButton, StaggerContainer } from "@/components/immersive/smooth-scroll";
@@ -88,6 +88,9 @@ export default function Marketplace() {
         setInvestingId(invoice.id);
 
         try {
+            // Dynamic import to avoid SSG issues
+            const { DeployUtil, CLPublicKey } = await import("casper-js-sdk");
+
             const FLOWFI_VAULT_PUBLIC_KEY = "0106ca7c39cd272dbf21a86eeb3b36b7c26e2e9b94af64292419f7862936bca2ca";
 
             const senderKey = CLPublicKey.fromHex(activeKey);
@@ -244,8 +247,8 @@ export default function Marketplace() {
                                         key={tab.key}
                                         onClick={() => setFilter(tab.key as any)}
                                         className={`px-5 py-3 text-sm font-medium transition-all ${filter === tab.key
-                                                ? "bg-gradient-to-r from-[var(--flow-cyan)] to-[var(--flow-purple)] text-white"
-                                                : "bg-white/5 text-[var(--flow-text-secondary)] hover:bg-white/10"
+                                            ? "bg-gradient-to-r from-[var(--flow-cyan)] to-[var(--flow-purple)] text-white"
+                                            : "bg-white/5 text-[var(--flow-text-secondary)] hover:bg-white/10"
                                             }`}
                                     >
                                         {tab.label}
@@ -295,8 +298,8 @@ export default function Marketplace() {
                                         <motion.div
                                             layout
                                             className={`glass rounded-2xl p-6 h-full border transition-colors ${inv.isNew
-                                                    ? "border-[var(--flow-cyan)]/30"
-                                                    : "border-white/10 hover:border-white/20"
+                                                ? "border-[var(--flow-cyan)]/30"
+                                                : "border-white/10 hover:border-white/20"
                                                 }`}
                                         >
                                             {/* New Badge */}

@@ -23,7 +23,7 @@ import NeuralLoader from "@/components/neural-loader";
 import { useCasper } from "@/components/providers";
 import { upload } from "thirdweb/storage";
 import { thirdwebClient } from "@/lib/thirdweb";
-import { DeployUtil, CLPublicKey, CLValueBuilder, RuntimeArgs, CLKey, CLAccountHash } from "casper-js-sdk";
+// casper-js-sdk is dynamically imported in handleMint to avoid SSG issues
 import { Card3D, GlowingCard } from "@/components/immersive/cards";
 import { FadeInSection } from "@/components/immersive/animated-text";
 import { MagneticButton } from "@/components/immersive/smooth-scroll";
@@ -128,6 +128,9 @@ export default function Dashboard() {
         try {
             setStatus("minting");
             setMintError(null);
+
+            // Dynamic import to avoid SSG issues
+            const { DeployUtil, CLPublicKey, CLValueBuilder, RuntimeArgs, CLKey, CLAccountHash } = await import("casper-js-sdk");
 
             // Upload to IPFS
             let ipfsUrl = "";
@@ -306,8 +309,8 @@ export default function Dashboard() {
                                     <div
                                         {...getRootProps()}
                                         className={`w-full max-w-xl h-80 rounded-2xl border-2 border-dashed flex flex-col items-center justify-center cursor-pointer transition-all duration-500 ${isDragActive
-                                                ? "border-[var(--flow-cyan)] bg-[var(--flow-cyan)]/10"
-                                                : "border-white/20 hover:border-[var(--flow-cyan)]/50 hover:bg-white/5"
+                                            ? "border-[var(--flow-cyan)] bg-[var(--flow-cyan)]/10"
+                                            : "border-white/20 hover:border-[var(--flow-cyan)]/50 hover:bg-white/5"
                                             }`}
                                     >
                                         <input {...getInputProps()} />

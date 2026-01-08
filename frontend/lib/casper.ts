@@ -1,4 +1,4 @@
-import { CasperClient, Contracts, RuntimeArgs, CLValueBuilder } from "casper-js-sdk";
+// casper-js-sdk is imported dynamically where needed to avoid SSG issues
 
 // Define the Casper Wallet Provider interface
 export interface CasperWalletProvider {

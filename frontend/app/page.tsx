@@ -1,6 +1,7 @@
 "use client";
 
-import { useRef, useEffect, Suspense, lazy } from "react";
+import { useRef, useEffect, Suspense } from "react";
+import dynamic from "next/dynamic";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import Link from "next/link";
 import {
@@ -10,7 +11,7 @@ import {
     TrendingUp,
     FileText,
     Coins,
-    ChartBar,
+    BarChart3,
     Lock,
     Globe,
     Cpu,
@@ -20,8 +21,8 @@ import {
     Play
 } from "lucide-react";
 
-// Lazy load the 3D components for better performance
-const ParticleField = lazy(() => import("@/components/immersive/particle-field"));
+// Dynamic import with SSR disabled for Three.js component
+const ParticleField = dynamic(() => import("@/components/immersive/particle-field"), { ssr: false });
 
 import AnimatedText, {
     AnimatedWords,
@@ -129,7 +130,7 @@ export default function Home() {
             gradient: "from-blue-500 to-indigo-500",
         },
         {
-            icon: ChartBar,
+            icon: BarChart3,
             title: "Real-Time Analytics",
             description: "Track your portfolio performance with advanced analytics. Monitor risk scores and yields in real-time.",
             gradient: "from-pink-500 to-rose-500",
