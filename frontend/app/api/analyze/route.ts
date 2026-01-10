@@ -1,11 +1,4 @@
-
 import { NextRequest, NextResponse } from 'next/server';
-
-export const config = {
-    api: {
-        bodyParser: false,
-    },
-};
 
 export async function POST(req: NextRequest) {
     try {
