@@ -233,29 +233,32 @@ export default function Dashboard() {
             const yieldRate = `${(10 + Math.random() * 8).toFixed(1)}%`;
             const termDays = `${Math.floor(30 + Math.random() * 30)} Days`;
 
-            // 1. Try Supabase
-            const { error: sbError } = await getSupabaseClient()
-                .from('invoices')
-                .insert([
-                    {
-                        invoice_id: invoiceId,
-                        vendor_name: vendorName,
-                        client_name: "Corporate Partner",
-                        amount: amount,
-                        currency: "USD",
-                        risk_score: 95, // Simplified mapping
-                        grade: result?.risk_score || "A",
-                        yield_rate: yieldRate,
-                        term_days: termDays,
-                        deploy_hash: finalDeployHash,
-                        ipfs_url: ipfsUrl,
-                        funding_status: 'available',
-                        due_date: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString()
-                    }
-                ]);
+            // 1. Try Supabase (if configured)
+            const supabaseClient = getSupabaseClient();
+            if (supabaseClient) {
+                const { error: sbError } = await supabaseClient
+                    .from('invoices')
+                    .insert([
+                        {
+                            invoice_id: invoiceId,
+                            vendor_name: vendorName,
+                            client_name: "Corporate Partner",
+                            amount: amount,
+                            currency: "USD",
+                            risk_score: 95, // Simplified mapping
+                            grade: result?.risk_score || "A",
+                            yield_rate: yieldRate,
+                            term_days: termDays,
+                            deploy_hash: finalDeployHash,
+                            ipfs_url: ipfsUrl,
+                            funding_status: 'available',
+                            due_date: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString()
+                        }
+                    ]);
 
-            if (sbError) {
-                console.error("Supabase insert failed, falling back to local:", sbError);
+                if (sbError) {
+                    console.error("Supabase insert failed, falling back to local:", sbError);
+                }
             }
 
             // 2. Always update localStorage for immediate local feedback/redundancy

@@ -1,17 +1,29 @@
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 
 let supabaseInstance: SupabaseClient | null = null;
+let initAttempted = false;
 
-export function getSupabaseClient(): SupabaseClient {
+/**
+ * Returns the Supabase client if configured, or null if env vars are missing.
+ * This allows the app to gracefully degrade to localStorage-only mode.
+ */
+export function getSupabaseClient(): SupabaseClient | null {
     if (supabaseInstance) {
         return supabaseInstance;
     }
+
+    if (initAttempted) {
+        return null; // Already tried and failed
+    }
+
+    initAttempted = true;
 
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
     const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
     if (!supabaseUrl || !supabaseAnonKey) {
-        throw new Error('Supabase environment variables are not configured');
+        console.warn('Supabase not configured. Using localStorage fallback.');
+        return null;
     }
 
     supabaseInstance = createClient(supabaseUrl, supabaseAnonKey);

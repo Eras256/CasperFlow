@@ -66,27 +66,31 @@ export default function Marketplace() {
     // Load minted invoices from Supabase
     useEffect(() => {
         const loadInvoices = async () => {
-            // 1. Fetch from Supabase
-            const { data, error } = await getSupabaseClient()
-                .from('invoices')
-                .select('*')
-                .order('created_at', { ascending: false });
-
             let dbInvoices: any[] = [];
-            if (data) {
-                dbInvoices = data.map((inv: any) => ({
-                    id: inv.invoice_id,
-                    vendor: inv.vendor_name,
-                    amount: inv.amount,
-                    score: inv.grade || "A",
-                    yield: inv.yield_rate || "12.5%",
-                    term: inv.term_days || "30 Days",
-                    isNew: true,
-                    isFunded: inv.funding_status === 'funded',
-                    deployHash: inv.deploy_hash,
-                    ipfsUrl: inv.ipfs_url,
-                    mintedAt: inv.created_at
-                }));
+
+            // 1. Try to fetch from Supabase (if configured)
+            const supabaseClient = getSupabaseClient();
+            if (supabaseClient) {
+                const { data, error } = await supabaseClient
+                    .from('invoices')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+
+                if (data) {
+                    dbInvoices = data.map((inv: any) => ({
+                        id: inv.invoice_id,
+                        vendor: inv.vendor_name,
+                        amount: inv.amount,
+                        score: inv.grade || "A",
+                        yield: inv.yield_rate || "12.5%",
+                        term: inv.term_days || "30 Days",
+                        isNew: true,
+                        isFunded: inv.funding_status === 'funded',
+                        deployHash: inv.deploy_hash,
+                        ipfsUrl: inv.ipfs_url,
+                        mintedAt: inv.created_at
+                    }));
+                }
             }
 
             // 2. Fallback to localStorage if DB empty or error (optional, but good for demo continuity)
@@ -194,16 +198,19 @@ export default function Marketplace() {
             );
             setInvoices(updatedInvoices);
 
-            // Update Supabase
-            const { error: sbError } = await getSupabaseClient()
-                .from('invoices')
-                .update({
-                    funding_status: 'funded',
-                    investor_deploy_hash: finalDeployHash
-                })
-                .eq('invoice_id', invoice.id);
+            // Update Supabase (if configured)
+            const supabaseClient = getSupabaseClient();
+            if (supabaseClient) {
+                const { error: sbError } = await supabaseClient
+                    .from('invoices')
+                    .update({
+                        funding_status: 'funded',
+                        investor_deploy_hash: finalDeployHash
+                    })
+                    .eq('invoice_id', invoice.id);
 
-            if (sbError) console.error("Supabase update failed", sbError);
+                if (sbError) console.error("Supabase update failed", sbError);
+            }
 
             // Fallback for localStorage to keep everything in sync
             if (invoice.isNew) {
