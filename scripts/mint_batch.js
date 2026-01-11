@@ -5,6 +5,7 @@ const {
     DeployUtil,
     RuntimeArgs,
     CLValueBuilder,
+    CLAccountHash
 } = require("casper-js-sdk");
 const fs = require("fs");
 const path = require("path");
@@ -61,7 +62,7 @@ async function main() {
         console.log(`\n💎 Minting ${tokenId} (${i + 1}/8)...`);
 
         const args = RuntimeArgs.fromMap({
-            token_owner: CLValueBuilder.key(publicKey),
+            token_owner: CLValueBuilder.key(new CLAccountHash(publicKey.toAccountHash())),
             token_meta_data: CLValueBuilder.string(JSON.stringify({
                 name: "FlowFi Invoice " + tokenId,
                 description: "Verified Invoice",
