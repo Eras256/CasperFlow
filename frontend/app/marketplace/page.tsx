@@ -131,9 +131,19 @@ export default function Marketplace() {
             // Merge: DB invoices + Local invoices (dedup by id) + Sample invoices
             const allMinted = [...dbInvoices, ...localInvoices];
             const mintedIds = new Set(allMinted.map(i => i.id));
-            const uniqueMinted = allMinted.filter((inv, idx, arr) =>
-                arr.findIndex(i => i.id === inv.id) === idx
-            );
+
+            // Filter out unwanted legacy data (names looking like filenames)
+            const blockedNames = [
+                "DAGlossary", "DABibliography", "DASSM", "PMI", "Workbook", "Handout", "ResourcesByLesson", "Participant"
+            ];
+
+            const uniqueMinted = allMinted.filter((inv, idx, arr) => {
+                // Deduplicate
+                const isFirst = arr.findIndex(i => i.id === inv.id) === idx;
+                // Block garbage names
+                const isBlocked = blockedNames.some(bad => inv.vendor && inv.vendor.includes(bad));
+                return isFirst && !isBlocked;
+            });
 
             // Add sample invoices that don't conflict
             const samplesFiltered = sampleInvoices.filter(s => !mintedIds.has(s.id));
