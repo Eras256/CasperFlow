@@ -328,12 +328,14 @@ export default function Marketplace() {
     const avgYield = invoices.reduce((sum, inv) => sum + parseFloat(inv.yield), 0) / invoices.length;
 
     const getScoreColor = (score: string) => {
+        if (!score) return "from-gray-500 to-slate-500";
         if (score.startsWith("A")) return "from-green-500 to-emerald-500";
         if (score.startsWith("B")) return "from-yellow-500 to-amber-500";
         return "from-red-500 to-rose-500";
     };
 
     const getScoreBg = (score: string) => {
+        if (!score) return "bg-gray-500/20 text-gray-400 border-gray-500/30";
         if (score.startsWith("A")) return "bg-green-500/20 text-green-400 border-green-500/30";
         if (score.startsWith("B")) return "bg-yellow-500/20 text-yellow-400 border-yellow-500/30";
         return "bg-red-500/20 text-red-400 border-red-500/30";
