@@ -229,7 +229,7 @@ MIT License. Built with ❤️ for the Casper Hackathon 2026.
 
 <div align="center">
 
-### 🌊 FlowFi — Where Invoices Become Assets
+### 👻 FlowFi — Where Invoices Become Assets
 
 **Vote for us on [CSPR.fans](https://cspr.fans)!**
 
