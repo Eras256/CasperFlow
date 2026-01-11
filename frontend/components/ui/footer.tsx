@@ -154,12 +154,10 @@ export default function Footer() {
                     {/* Copyright */}
                     <FadeInSection direction="up" delay={0.4}>
                         <div className="flex flex-col md:flex-row items-center gap-4 text-sm text-[var(--flow-text-muted)]">
-                            <p>© {currentYear} Develop by Vaiosx Made by FlowFi Team</p>
+                            <p>© {currentYear} Released under MIT License</p>
                             <span className="hidden md:block">•</span>
                             <p className="flex items-center gap-2">
-                                Built for{" "}
-                                <span className="text-[var(--flow-cyan)] font-medium">Casper Hackathon 2026</span>
-                                <span className="inline-block w-2 h-2 rounded-full bg-[var(--flow-cyan)] animate-pulse" />
+                                Develop by <a href="https://t.me/Vaiosx" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--flow-cyan)] transition-colors">Vaiosx</a> & M0nsxx
                             </p>
                         </div>
                     </FadeInSection>

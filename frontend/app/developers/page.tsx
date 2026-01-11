@@ -50,7 +50,7 @@ export default function Developers() {
             title: "Casper SDK",
             description: "Interact with minted invoices using our unified TypeScript client.",
             icon: Code2,
-            code: "npm install @flowfi/sdk",
+            code: "npm install casper-js-sdk",
             gradient: "from-[var(--flow-purple)] to-[var(--flow-pink)]",
         },
     ];
@@ -103,12 +103,11 @@ export default function Developers() {
     const sdkExamples = [
         {
             title: "Initialize Client",
-            code: `import { FlowFi } from '@flowfi/sdk';
+            code: `import { CasperClient } from 'casper-js-sdk';
 
-const client = new FlowFi({
-  network: 'casper-test',
-  contractHash: 'YOUR_CONTRACT_HASH',
-});`,
+const client = new CasperClient("https://node.testnet.cspr.cloud/rpc");
+// Contracts and logic are managed via SDK helpers
+`,
         },
         {
             title: "Analyze Invoice",
@@ -242,8 +241,8 @@ console.log(result.deployHash);`,
                                 key={tab.key}
                                 onClick={() => setActiveTab(tab.key as any)}
                                 className={`px-6 py-3 rounded-xl font-medium text-sm transition-all ${activeTab === tab.key
-                                        ? "bg-gradient-to-r from-[var(--flow-cyan)] to-[var(--flow-purple)] text-white"
-                                        : "text-[var(--flow-text-secondary)] hover:text-white"
+                                    ? "bg-gradient-to-r from-[var(--flow-cyan)] to-[var(--flow-purple)] text-white"
+                                    : "text-[var(--flow-text-secondary)] hover:text-white"
                                     }`}
                             >
                                 {tab.label}
@@ -281,8 +280,8 @@ console.log(result.deployHash);`,
                                                 <div className="flex items-center gap-3 mb-1">
                                                     <h3 className="font-bold text-white">{api.title}</h3>
                                                     <span className={`px-2 py-0.5 rounded text-xs font-bold ${api.method === "POST"
-                                                            ? "bg-[var(--flow-cyan)]/20 text-[var(--flow-cyan)]"
-                                                            : "bg-[var(--flow-green)]/20 text-[var(--flow-green)]"
+                                                        ? "bg-[var(--flow-cyan)]/20 text-[var(--flow-cyan)]"
+                                                        : "bg-[var(--flow-green)]/20 text-[var(--flow-green)]"
                                                         }`}>
                                                         {api.method}
                                                     </span>
