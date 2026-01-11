@@ -47,3 +47,5 @@ venv/
 *.pem
 temp_key.pem
 deploy_result.json
+VERCEL_ENV_VARS.md
+*ENV_VARS*
