@@ -322,14 +322,15 @@ export default function Dashboard() {
 
             // 2. Always update localStorage for immediate local feedback/redundancy
             const invoiceData = {
-                id: tokenId,
+                id: invoiceId, // Use the full ID (INV-...)
                 vendor: (result && (result as any).companyName)
                     ? (result as any).companyName
                     : (file ? file.name.replace(/\.[^/.]+$/, "").replace(/[-_]/g, " ") : `FlowFi Vendor ${tokenId.substring(0, 4)}`),
                 amount: (result && result.valuation) ? result.valuation : 50000,
                 grade: (result && result.risk_score) ? result.risk_score : "A",
                 yield_rate: "12.5%",
-                term_days: 30,
+                term: "30 Days", // Normalize to string "30 Days" to match sample format
+                term_days: 30, // Keep numeric for calculations
                 metadata: metadataVerified,
                 ipfs_url: ipfsUrl,
                 deploy_hash: finalDeployHash,
@@ -339,7 +340,14 @@ export default function Dashboard() {
                 isNew: true
             };
 
-            const existingInvoices = JSON.parse(localStorage.getItem("flowfi_minted_invoices") || "[]");
+            let existingInvoices = [];
+            try {
+                existingInvoices = JSON.parse(localStorage.getItem("flowfi_minted_invoices") || "[]");
+                if (!Array.isArray(existingInvoices)) existingInvoices = [];
+            } catch (e) {
+                console.warn("Could not parse existing invoices, starting fresh");
+                existingInvoices = [];
+            }
             existingInvoices.push(invoiceData);
             localStorage.setItem("flowfi_minted_invoices", JSON.stringify(existingInvoices));
 

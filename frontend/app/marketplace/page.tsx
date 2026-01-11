@@ -123,10 +123,13 @@ export default function Marketplace() {
                 try {
                     localInvoices = JSON.parse(stored).map((inv: any) => ({
                         ...inv,
+                        // Fix: Auto-prepend INV- if missing (handling legacy local storage data)
+                        id: (inv.id && inv.id.startsWith("INV-")) ? inv.id : `INV-${inv.id || 'Unknown'}`,
                         score: inv.score || inv.grade || "A",           // Normalize grade -> score
                         yield: inv.yield || inv.yield_rate || "12.5%",  // Normalize yield_rate -> yield
-                        term: inv.term || inv.term_days || 30,          // Normalize term_days -> term
-                        deployHash: inv.deployHash || inv.deploy_hash,  // Normalize deploy_hash -> deployHash
+                        term: (typeof inv.term === 'string' && inv.term.includes('Days')) ? inv.term : `${inv.term || inv.term_days || 30} Days`, // Normalize term
+                        deployHash: (inv.deployHash || inv.deploy_hash || "").trim(),  // Normalize deploy_hash -> deployHash (ensure string)
+                        mintedAt: inv.mintedAt || inv.created_at || new Date().toISOString(), // Ensure timestamp exists
                         isNew: true
                     }));
                 } catch (e) {
@@ -139,12 +142,20 @@ export default function Marketplace() {
             const mintedIds = new Set(allMinted.map(i => i.id));
 
             // Filter out unwanted legacy data (names looking like filenames)
-            const blockedNames: string[] = [];
+            const blockedNames: string[] = [
+                "DAGlossary", "DA_Glossary",
+                "DABibliography",
+                "Application Report",
+                "FlowFi Vendor MKAA",
+                "PMI Certification",
+                "DASSM"
+            ];
 
             const uniqueMinted = allMinted.filter((inv, idx, arr) => {
+                if (!inv.id) return false;
                 // Deduplicate
                 const isFirst = arr.findIndex(i => i.id === inv.id) === idx;
-                // Block garbage names
+                // Block garbage names/empty IDs
                 const isBlocked = blockedNames.some(bad => inv.vendor && inv.vendor.includes(bad));
                 return isFirst && !isBlocked;
             });
@@ -321,8 +332,20 @@ export default function Marketplace() {
         )
         .sort((a, b) => {
             // Specific Sorts
-            if (sortBy === "newest") return (b.isNew ? 1 : 0) - (a.isNew ? 1 : 0);
-            if (sortBy === "oldest") return (a.isNew ? 1 : 0) - (b.isNew ? 1 : 0);
+            // Specific Sorts
+            if (sortBy === "newest") {
+                const dateA = new Date(a.mintedAt || 0).getTime();
+                const dateB = new Date(b.mintedAt || 0).getTime();
+                // If dates are equal (e.g. sample data), fall back to isNew
+                if (dateA === dateB) return (b.isNew ? 1 : 0) - (a.isNew ? 1 : 0);
+                return dateB - dateA;
+            }
+            if (sortBy === "oldest") {
+                const dateA = new Date(a.mintedAt || 0).getTime();
+                const dateB = new Date(b.mintedAt || 0).getTime();
+                if (dateA === dateB) return (a.isNew ? 1 : 0) - (b.isNew ? 1 : 0);
+                return dateA - dateB;
+            }
 
             // Default priority for NEW items (if not sorting by Oldest)
             if (a.isNew && !b.isNew) return -1;
@@ -548,7 +571,7 @@ export default function Marketplace() {
                                                 </div>
 
                                                 <div className="flex items-center gap-2">
-                                                    {inv.deployHash && (
+                                                    {(inv.deployHash && inv.deployHash.length > 20) && (
                                                         <a
                                                             href={`https://testnet.cspr.live/deploy/${inv.deployHash}`}
                                                             target="_blank"
@@ -631,7 +654,7 @@ export default function Marketplace() {
                                                 </div>
 
                                                 {/* Blockchain Verified Badge + Explorer Link */}
-                                                {inv.deployHash && (
+                                                {(inv.deployHash && inv.deployHash.length > 20) && (
                                                     <a
                                                         href={`https://testnet.cspr.live/deploy/${inv.deployHash}`}
                                                         target="_blank"
