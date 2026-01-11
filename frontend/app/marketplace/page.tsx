@@ -140,7 +140,7 @@ export default function Marketplace() {
 
             // Filter out unwanted legacy data (names looking like filenames)
             const blockedNames = [
-                "DAGlossary", "DABibliography", "DASSM", "PMI", "Workbook", "Handout", "ResourcesByLesson", "Participant"
+                "DAGlossary", "DABibliography", "DASSM", "PMI", "Workbook", "Handout", "ResourcesByLesson", "Participant", "FlowFi Vendor"
             ];
 
             const uniqueMinted = allMinted.filter((inv, idx, arr) => {
