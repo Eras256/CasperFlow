@@ -324,8 +324,12 @@ export default function Marketplace() {
         });
 
     const mintedCount = invoices.filter(inv => inv.isNew).length;
-    const totalVolume = invoices.reduce((sum, inv) => sum + inv.amount, 0);
-    const avgYield = invoices.reduce((sum, inv) => sum + parseFloat(inv.yield), 0) / invoices.length;
+    // Fix: Parse amount safely as it might be stored as string "50000" in localStorage
+    const totalVolume = invoices.reduce((sum, inv) => sum + (Number(inv.amount) || 0), 0);
+    // Fix: Handle empty array div-by-zero
+    const avgYield = invoices.length > 0
+        ? invoices.reduce((sum, inv) => sum + (parseFloat(inv.yield) || 0), 0) / invoices.length
+        : 0;
 
     const getScoreColor = (score: string) => {
         if (!score) return "from-gray-500 to-slate-500";
