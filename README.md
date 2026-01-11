@@ -1,4 +1,4 @@
-# 🌊 FlowFi: The Future of Invoice Financing on Casper
+# 👻 FlowFi: The Future of Invoice Financing on Casper
 
 <div align="center">
 
