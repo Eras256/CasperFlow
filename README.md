@@ -188,6 +188,33 @@ NEXT_PUBLIC_PINATA_JWT=your-pinata-jwt
 
 ---
 
+## 🟢 Key On-Chain Actions to Test (Judges)
+
+1.  **Mint an Invoice (NFT):**
+    *   Go to **Dashboard**.
+    *   Upload any PDF (or use the one generated).
+    *   Click **"Mint Invoice NFT"**.
+    *   *(Wait ~15s)* -> You will receive a **verified mainnet/testnet Deploy Hash**.
+    *   Click the hash to see your NFT transaction on `cspr.live`.
+
+2.  **Invest in an Invoice (DeFi):**
+    *   Go to **Marketplace**.
+    *   You will see **20+ Real Verified Invoices** (Pre-loaded from Casper Testnet activity).
+    *   Click **"Invest Now"** on any available invoice.
+    *   Sign the transaction with Casper Wallet.
+    *   See the invoice status change to **Funded** on-chain.
+
+### 🔍 Verifiable Proofs (Testnet)
+
+The marketplace is pre-populated with **20 real invoices verified on Casper Testnet**. You can verify them on the explorer:
+
+*   **Quantum Hardware ($112,000):** [View Transaction (`4d1cd...`)](https://testnet.cspr.live/deploy/4d1cd2c9ff419bdd31262bbbdda561615a2caf4a5a48a3a4edaedee53dca4132)
+*   **BioLife Pharma ($89,500):** [View Transaction (`24186...`)](https://testnet.cspr.live/deploy/24186da408850fc4a38f4b72214f20c2e2b9ee6b41fd4e07df52a267f8a76789)
+*   **GreenEnergy Co ($67,500):** [View Transaction (`273ef...`)](https://testnet.cspr.live/deploy/273ef138ba1cc5d1fa98b00592da1ae5adfb09f80f5b05bdd1cec76850b601ac)
+*   *(And 17 more available in the dApp)*
+
+---
+
 ## 🔮 Roadmap
 
 ### Phase 1: Hackathon (Current)
