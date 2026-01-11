@@ -167,7 +167,7 @@ export default function Dashboard() {
             const metadataVerified = {
                 name: `FlowFi Invoice ${tokenId}`,
                 description: "Verified Invoice",
-                amount: 50000,
+                amount: "50000",
                 status: "financed"
             };
 
