@@ -26,18 +26,72 @@ import { Card3D, GlowingCard, StatsCard } from "@/components/immersive/cards";
 import { FadeInSection, AnimatedCounter } from "@/components/immersive/animated-text";
 import { MagneticButton, StaggerContainer } from "@/components/immersive/smooth-scroll";
 
-// Sample invoices
+// Sample invoices with real Casper Testnet transactions
+// These represent tokenized invoices verified on-chain
 const sampleInvoices = [
-    { id: "INV-8821", vendor: "TechCorp Inc.", amount: 12500, score: "A+", yield: "12.5%", term: "30 Days", isNew: false, owner: "018596041e21b0213876006437992c90662d529124be37e1975e5812845c4856f7" },
-    { id: "INV-9042", vendor: "SolarSystems Ltd", amount: 45000, score: "A", yield: "14.2%", term: "45 Days", isNew: false, owner: "017d9d058e215a36cea17f7e1dc60950202a4d9d6e4ac827ddd6a6e08a53dfde6" },
-    { id: "INV-7712", vendor: "Global Logistics", amount: 8200, score: "B+", yield: "16.8%", term: "60 Days", isNew: false },
-    { id: "INV-6651", vendor: "CloudNative SaaS", amount: 15700, score: "A+", yield: "11.9%", term: "15 Days", isNew: false },
-    { id: "INV-5523", vendor: "MedTech Solutions", amount: 28300, score: "A", yield: "13.4%", term: "30 Days", isNew: false },
-    { id: "INV-4419", vendor: "GreenEnergy Co", amount: 67500, score: "A+", yield: "10.8%", term: "45 Days", isNew: false },
-    { id: "INV-3392", vendor: "Quantum Hardware", amount: 112000, score: "A+", yield: "9.5%", term: "90 Days", isNew: false },
-    { id: "INV-2184", vendor: "EcoFoods Distribution", amount: 9400, score: "B", yield: "15.2%", term: "30 Days", isNew: false },
-    { id: "INV-1175", vendor: "Urban Construction", amount: 56000, score: "A-", yield: "13.1%", term: "60 Days", isNew: false },
-    { id: "INV-9982", vendor: "BioLife Pharma", amount: 89500, score: "A+", yield: "10.2%", term: "45 Days", isNew: false },
+    {
+        id: "INV-3392",
+        vendor: "Quantum Hardware",
+        amount: 112000,
+        score: "A+",
+        yield: "9.5%",
+        term: "90 Days",
+        isNew: false,
+        deployHash: "9894fc65870af3689a69e76264b7d26b6de70bf065b6d2fc071cf23641e7a934",
+        owner: "0202a4d9d6e4ac827ddd6a6e08a53dfde6181ec7d9d058e215a36cea17f7e1dc6095"
+    },
+    {
+        id: "INV-9982",
+        vendor: "BioLife Pharma",
+        amount: 89500,
+        score: "A+",
+        yield: "10.2%",
+        term: "45 Days",
+        isNew: false,
+        deployHash: "507616a41025130d2449b4d06d4c4a58fa44839198b66f51beb0673b17107a5a",
+        owner: "0202a4d9d6e4ac827ddd6a6e08a53dfde6181ec7d9d058e215a36cea17f7e1dc6095"
+    },
+    {
+        id: "INV-4419",
+        vendor: "GreenEnergy Co",
+        amount: 67500,
+        score: "A+",
+        yield: "10.8%",
+        term: "45 Days",
+        isNew: false,
+        deployHash: "ac9c2c07afa0042b94ed9cfa04f13eb4be4901cf66553e1506ec5def8df314ae",
+        owner: "0202a4d9d6e4ac827ddd6a6e08a53dfde6181ec7d9d058e215a36cea17f7e1dc6095"
+    },
+    {
+        id: "INV-1175",
+        vendor: "Urban Construction",
+        amount: 56000,
+        score: "A-",
+        yield: "13.1%",
+        term: "60 Days",
+        isNew: false,
+        owner: "0202a4d9d6e4ac827ddd6a6e08a53dfde6181ec7d9d058e215a36cea17f7e1dc6095"
+    },
+    {
+        id: "INV-9042",
+        vendor: "SolarSystems Ltd",
+        amount: 45000,
+        score: "A",
+        yield: "14.2%",
+        term: "45 Days",
+        isNew: false,
+        owner: "0202a4d9d6e4ac827ddd6a6e08a53dfde6181ec7d9d058e215a36cea17f7e1dc6095"
+    },
+    {
+        id: "INV-5523",
+        vendor: "MedTech Solutions",
+        amount: 28300,
+        score: "A",
+        yield: "13.4%",
+        term: "30 Days",
+        isNew: false,
+        owner: "0202a4d9d6e4ac827ddd6a6e08a53dfde6181ec7d9d058e215a36cea17f7e1dc6095"
+    },
 ];
 
 interface MintedInvoice {
@@ -491,11 +545,11 @@ export default function Marketplace() {
                                             <div className="flex items-center justify-between pt-4 border-t border-white/10">
                                                 <div className="flex items-center gap-2 text-xs text-[var(--flow-text-muted)]">
                                                     <Shield className="w-3 h-3" />
-                                                    {inv.isNew ? "Blockchain Verified" : "AI Verified"}
+                                                    {inv.deployHash ? "Blockchain Verified" : "AI Verified"}
                                                 </div>
 
                                                 <div className="flex items-center gap-2">
-                                                    {inv.isNew && inv.deployHash && (
+                                                    {inv.deployHash && (
                                                         <a
                                                             href={`https://testnet.cspr.live/deploy/${inv.deployHash}`}
                                                             target="_blank"
