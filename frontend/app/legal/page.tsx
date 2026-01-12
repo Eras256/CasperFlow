@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { FadeInSection } from "@/components/immersive/animated-text";
 
-export default function Legal() {
+function LegalContent() {
     const searchParams = useSearchParams();
 
     // Simple hash scrolling fix
@@ -102,3 +102,12 @@ export default function Legal() {
         </div>
     );
 }
+
+export default function Legal() {
+    return (
+        <Suspense fallback={<div className="min-h-screen flex items-center justify-center"><div className="animate-pulse text-white">Loading...</div></div>}>
+            <LegalContent />
+        </Suspense>
+    );
+}
+
