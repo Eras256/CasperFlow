@@ -6,10 +6,11 @@ import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import Link from "next/link";
 import {
     ArrowRight,
+    TrendingUp,
     Shield,
     Zap,
-    TrendingUp,
     FileText,
+    CheckCircle2,
     Coins,
     BarChart3,
     Lock,
@@ -18,13 +19,15 @@ import {
     Sparkles,
     CheckCircle,
     ArrowUpRight,
-    Play,
     Award,
     Trophy,
     Star,
     Quote,
     Building2,
-    Rocket
+    Rocket,
+    Play,
+    Pause,
+    ExternalLink
 } from "lucide-react";
 
 // Dynamic import with SSR disabled for Three.js component
@@ -452,10 +455,11 @@ export default function Home() {
                                         </MagneticButton>
                                     </div>
 
-                                    <p className="text-sm text-[var(--flow-text-muted)] flex items-center gap-2">
+                                    <Link href="https://t.me/Vaiosx" target="_blank" className="text-sm text-[var(--flow-text-muted)] flex items-center gap-2 hover:text-white transition-colors cursor-pointer group/link">
                                         <CheckCircle className="w-4 h-4 text-[var(--flow-green)]" />
-                                        <span>We cover the voting fee (DM us!)</span>
-                                    </p>
+                                        <span>We cover the voting fee <span className="underline decoration-[var(--flow-cyan)] underline-offset-4 group-hover/link:text-[var(--flow-cyan)] transition-colors font-medium">(DM me on Telegram)</span></span>
+                                        <ExternalLink className="w-3 h-3 opacity-0 group-hover/link:opacity-100 transition-opacity" />
+                                    </Link>
                                 </div>
 
                                 {/* Right: Image */}
